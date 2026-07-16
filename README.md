@@ -1,39 +1,205 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Flutter Native PDF View
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A lightweight, reusable Flutter package for displaying PDF documents with a clean API.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+Supports Asset, Network, File and Memory PDFs while exposing a simple controller-based interface for Flutter applications.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+---
 
-## Features
+## ✨ Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- 📄 Asset PDF
+- 🌐 Network PDF
+- 📁 Local File PDF
+- 💾 Memory (Uint8List) PDF
+- 🔍 Zoom Support
+- 📖 Page Navigation
+- 🎯 Jump To Page
+- 📊 Current Page Tracking
+- ⏳ Custom Loading Widget
+- ❌ Custom Error Widget
+- 🧩 Reusable Controller API
+- 📱 Android
+- 🍎 iOS
+- 🖥️ Windows (Planned)
+- 🌍 Web (Planned)
 
-## Getting started
+---
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Installation
 
-## Usage
+Add the dependency.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  flutter_native_pdf_view: 
+     path : ../
 ```
 
-## Additional information
+Run
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```bash
+flutter pub get
+```
+
+---
+
+## Import
+
+```dart
+import 'package:flutter_native_pdf_view/flutter_native_pdf_view.dart';
+```
+
+---
+
+## Asset PDF
+
+```dart
+final controller = NativePdfController();
+
+NativePdfView(
+  controller: controller,
+  source: const PdfSource.asset(
+    'assets/sample.pdf',
+  ),
+)
+```
+
+---
+
+## Network PDF
+
+```dart
+NativePdfView(
+  controller: controller,
+  source: const PdfSource.network(
+    'https://example.com/sample.pdf',
+  ),
+)
+```
+
+---
+
+## File PDF
+
+```dart
+NativePdfView(
+  controller: controller,
+  source: PdfSource.file(
+    file.path,
+  ),
+)
+```
+
+---
+
+## Memory PDF
+
+```dart
+NativePdfView(
+  controller: controller,
+  source: PdfSource.memory(
+    bytes,
+  ),
+)
+```
+
+---
+
+# Controller
+
+Create
+
+```dart
+final controller = NativePdfController();
+```
+
+### Next Page
+
+```dart
+controller.nextPage();
+```
+
+### Previous Page
+
+```dart
+controller.previousPage();
+```
+
+### Jump To Page
+
+```dart
+controller.jumpToPage(5);
+```
+
+### Zoom In
+
+```dart
+controller.zoomIn();
+```
+
+### Zoom Out
+
+```dart
+controller.zoomOut();
+```
+
+### Set Zoom
+
+```dart
+controller.setZoom(2.0);
+```
+
+---
+
+# Current Value
+
+```dart
+controller.value.currentPage
+
+controller.value.totalPages
+
+controller.value.zoom
+
+controller.value.state
+```
+
+---
+
+
+# Example
+
+```dart
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
+
+  final controller = NativePdfController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Flutter Native PDF View',
+        ),
+      ),
+      body: NativePdfView(
+        controller: controller,
+        source: const PdfSource.asset(
+          'assets/sample.pdf',
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+## License
+
+MIT License
+
+---
+
+Developed with ❤️ using Flutter.
